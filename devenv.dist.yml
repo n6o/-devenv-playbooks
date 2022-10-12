@@ -1,0 +1,51 @@
+---
+- name: Setup development environment
+  hosts: localhost
+  connection: local
+  tasks:
+    ## apt
+    - name: Update repository cache
+      tags: apt
+      become: true
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+    - name: Install packages
+      tags: apt
+      become: true
+      apt:
+        name:
+          - "{{ item }}"
+        state: latest
+      loop:
+        - git
+        - curl
+        - wget
+        - fzf
+        - direnv
+        - unzip
+    ## dotfiles
+    - name: Fetch dotfiles installer
+      tags: dotfiles
+      ansible.builtin.uri:
+        url: https://raw.githubusercontent.com/peg7/dotfiles/main/.bin/install.sh
+        return_content: yes
+      register: dotfiles_installer
+    - name: Run dotfiles installer
+      tags: dotfiles
+      ansible.builtin.shell:
+        cmd: /bin/bash
+        stdin: "{{ dotfiles_installer.content }}"
+    ## starship
+    - name: Fetch starship installer
+      tags: starship
+      ansible.builtin.uri:
+        url: https://starship.rs/install.sh
+        return_content: yes
+      register: starship_installer
+    - name: Run starship installer
+      tags: starship
+      become: true
+      ansible.builtin.shell:
+        cmd: /bin/bash
+        stdin: "{{ starship_installer.content }}"
