@@ -47,5 +47,5 @@
       tags: starship
       become: true
       ansible.builtin.shell:
-        cmd: /bin/bash
+        cmd: /bin/sh
         stdin: "{{ starship_installer.content }}"
