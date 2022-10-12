@@ -24,6 +24,7 @@
         - fzf
         - direnv
         - unzip
+        - pass
     ## snap
     - name: Install snap packages
       tags: snap
@@ -79,4 +80,15 @@
         executable: /bin/sh
       loop:
         - github.com/x-motemen/ghq@latest
-    
+    ## docker
+    # https://docs.docker.com/engine/install/linux-postinstall/
+    - name: Create docker group
+      ansible.builtin.group:
+        name: docker
+        state: present
+    - name: Add user to docker group
+    - name: Add the user 'johnd' with a specific uid and a primary group of 'admin'
+      ansible.builtin.user:
+        name: ubuntu
+        group: docker
+        append: yes
