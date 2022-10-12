@@ -17,5 +17,11 @@ $ ansible-playbook --tags apt,dotfiles devenv.dist.yml
 ## List tasks
 
 ```
-$ ansible-playbook -list-tasks devenv.dist.yml
+$ ansible-playbook --list-tasks devenv.dist.yml
+```
+
+## Download playbook manually
+
+```
+$ curl -o archive/devenv.dist.yml https://raw.githubusercontent.com/n6o/virt-playbooks/main/devenv.dist.yml
 ```
