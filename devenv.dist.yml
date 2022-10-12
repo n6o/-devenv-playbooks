@@ -10,7 +10,7 @@
       apt:
         update_cache: yes
         cache_valid_time: 3600
-    - name: Install packages
+    - name: Install apt packages
       tags: apt
       become: true
       apt:
@@ -24,6 +24,14 @@
         - fzf
         - direnv
         - unzip
+    ## snap
+    - name: Install snap packages
+      tags: snap
+      snap:
+        name:
+          - "{{ item }}"
+      loop:
+        - docker
     ## dotfiles
     - name: Fetch dotfiles installer
       tags: dotfiles
@@ -70,3 +78,4 @@
         executable: /bin/sh
       loop:
         - github.com/x-motemen/ghq@latest
+    
