@@ -49,3 +49,16 @@
       ansible.builtin.shell:
         cmd: /tmp/starship-install.sh -y
         executable: /bin/sh
+    ## golang
+    - name: Fetch golang installer
+      tags: golang
+      ansible.builtin.get_url:
+        url: https://go.dev/dl/go1.19.2.linux-arm64.tar.gz
+        dest: /tmp/go1.19.2.linux-arm64.tar.gz
+        mode: '0755'
+    - name: Setup golang
+      tags: golang
+      become: true
+      ansible.builtin.shell:
+        cmd: rm -rf /usr/local/go && tar -C /usr/local -xzf /tmp/go1.19.2.linux-arm64.tar.gz
+        executable: /bin/sh
