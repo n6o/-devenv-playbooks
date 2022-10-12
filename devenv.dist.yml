@@ -27,6 +27,7 @@
     ## snap
     - name: Install snap packages
       tags: snap
+      become: true
       snap:
         name:
           - "{{ item }}"
