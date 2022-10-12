@@ -28,7 +28,7 @@
     - name: Fetch dotfiles installer
       tags: dotfiles
       ansible.builtin.uri:
-        url: https://raw.githubusercontent.com/peg7/dotfiles/main/.bin/install.sh
+        url: https://raw.githubusercontent.com/n6o/dotfiles/main/.bin/install.sh
         return_content: yes
       register: dotfiles_installer
     - name: Run dotfiles installer
