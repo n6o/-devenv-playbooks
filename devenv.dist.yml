@@ -39,13 +39,13 @@
     ## starship
     - name: Fetch starship installer
       tags: starship
-      ansible.builtin.uri:
+      ansible.builtin.get_url:
         url: https://starship.rs/install.sh
-        return_content: yes
-      register: starship_installer
+        dest: /tmp/starship-install.sh
+        mode: '0755'
     - name: Run starship installer
       tags: starship
       become: true
       ansible.builtin.shell:
-        cmd: /bin/sh
-        stdin: "{{ starship_installer.content }}"
+        cmd: /tmp/starship-install.sh -y
+        executable: /bin/sh
