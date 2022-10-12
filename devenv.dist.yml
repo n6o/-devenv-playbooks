@@ -62,3 +62,11 @@
       ansible.builtin.shell:
         cmd: rm -rf /usr/local/go && tar -C /usr/local -xzf /tmp/go1.19.2.linux-arm64.tar.gz
         executable: /bin/sh
+    ## golang
+    - name: Install tools made by golang
+      tags: golang-tools
+      ansible.builtin.shell:
+        cmd: "go install {{ item }}"
+        executable: /bin/sh
+      loop:
+        - github.com/x-motemen/ghq@latest
